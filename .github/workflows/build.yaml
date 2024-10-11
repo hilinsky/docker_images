@@ -40,7 +40,7 @@ jobs:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_CHANNEL: md-sa2-29-24
+        SLACK_CHANNEL: all-slack
         SLACK_COLOR: ${{ job.status }}
         SLACK_MESSAGE: "Docker image is ready ghcr.io/hilinsky/${{ inputs.imageToBuild }}:latest"
         SLACK_TITLE: Docker image build status
