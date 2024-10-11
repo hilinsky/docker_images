@@ -42,7 +42,7 @@ jobs:
       env:
         SLACK_CHANNEL: md-sa2-29-24
         SLACK_COLOR: ${{ job.status }}
-        SLACK_MESSAGE: "Docker image is ready ghcr.io/hilinsky/${{ needs.filter.outputs }}:latest"
+        SLACK_MESSAGE: "Docker image is ready ghcr.io/hilinsky/${{ inputs.imageToBuild }}:latest"
         SLACK_TITLE: Docker image build status
         SLACK_USERNAME: GitHub
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
