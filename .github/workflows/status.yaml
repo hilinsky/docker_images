@@ -1,0 +1,12 @@
+name: Kube CI
+on:
+  workflow_dispatch:
+jobs:
+  test-on-cluster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testing on a k8s Kind Cluster
+        uses: helm/kind-action@v1.4.0
+        id: status
+      - run: |
+          kubectl get pods -A
