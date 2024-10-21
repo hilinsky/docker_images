@@ -9,4 +9,9 @@ jobs:
         uses: helm/kind-action@v1.4.0
         id: status
       - run: |
-          kubectl get pods -A | sed -n '2,$p '| awk '{print $4}'
+          OUTPUT=kubectl get pods -A | sed -n '2,$p '| awk '{print $4}'
+          echo "::set-output name=content::$OUTPUT"
+      - name: display string
+        run: |
+          echo "The string is: ${{ steps.status.outputs.content }}"
+
