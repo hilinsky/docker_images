@@ -5,23 +5,23 @@ jobs:
   check-pods:
     runs-on: my_runner
     steps:
-      - name: Export Kubeconfig
+      - name: Export kubeconfig and get pods
         run: |
           export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
           STATUS_ARRAY=$(kubectl get pods -A | sed -n '2,$p '| awk '{print $2, $4}')
           echo "STATUS_ARRAY_ENV<<EOF" >> $GITHUB_ENV
           echo $STATUS_ARRAY >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-      - name: Using environment variable
+      - name: Get result of search
         run: |
           STATUS="Error"
           if [[ ${STATUS_ARRAY_ENV[@]} =~ $STATUS ]]
           then
             STATE="TRUE"
-            echo $STATE >> $GITHUB_ENV
+            echo "STATE_ENV=$STATE" >> $GITHUB_ENV
           else
             STATE="FALSE"
-            echo $STATE >> $GITHUB_ENV
+            echo "STATE_ENV=$STATE" >> $GITHUB_ENV
           fi
   notification:
     needs: check-pods
