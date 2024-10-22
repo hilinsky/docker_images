@@ -5,9 +5,6 @@ jobs:
   test-on-cluster:
     runs-on: my_runner
     steps:
-      - name: Export Kubeconfig
-        run: |
-          export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
-      - name: Get pods status
+      - name: Get env
         run: |
           env | grep KUBECONFIG
