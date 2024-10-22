@@ -2,7 +2,7 @@ name: Kube CI
 on:
   workflow_dispatch:
 jobs:
-  test-on-cluster:
+  check-pods:
     runs-on: my_runner
     steps:
       - name: Export Kubeconfig
@@ -17,7 +17,23 @@ jobs:
           STATUS="Error"
           if [[ ${STATUS_ARRAY_ENV[@]} =~ $STATUS ]]
           then
-            echo "Array element '$STATUS' exists"
+            STATE="TRUE"
+            echo $STATE >> $GITHUB_ENV
           else
-            echo "Array element does not exist"
+            STATE="FALSE"
+            echo $STATE >> $GITHUB_ENV
           fi
+  notification:
+    needs: check-pods
+    runs-on: ubuntu-latest
+    if: $STATE = 'TRUE'
+    steps:
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: all-slack
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_MESSAGE: "K8s has pods with 'Error' status"
+        SLACK_TITLE: K8s status
+        SLACK_USERNAME: GitHub
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
