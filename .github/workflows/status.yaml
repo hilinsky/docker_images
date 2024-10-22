@@ -8,4 +8,4 @@ jobs:
       - name: Export Kubeconfig
         run: |
           export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
-          env
+          kubectl get pods -A | sed -n '2,$p '| awk '{print $4}'
