@@ -5,6 +5,7 @@ jobs:
   test-on-cluster:
     runs-on: my_runner
     steps:
-      - name: Get env
+      - name: Export Kubeconfig
         run: |
+          export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
           env
