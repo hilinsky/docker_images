@@ -27,7 +27,7 @@ jobs:
   notification:
     needs: check-pods
     runs-on: ubuntu-latest
-    if: needs.check-pods.outputs.STATE_ENV = 'TRUE'
+    if: needs.check-pods.outputs.STATE_ENV == 'TRUE'
     steps:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
