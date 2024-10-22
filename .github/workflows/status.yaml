@@ -4,6 +4,8 @@ on:
 jobs:
   check-pods:
     runs-on: my_runner
+    outputs:
+      STATE_ENV: ${{ steps.init.outputs.STATE_ENV }}
     steps:
       - name: Export kubeconfig and get pods
         run: |
@@ -13,18 +15,19 @@ jobs:
           echo $STATUS_ARRAY >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - name: Get result of search
+        id: init
         run: |
           STATUS="Error"
           if [[ ${STATUS_ARRAY_ENV[@]} =~ $STATUS ]]
           then
-            echo "STATE_ENV=TRUE" >> $GITHUB_ENV
+            echo "STATE_ENV=TRUE" >> $GITHUB_OUTPUT
           else
-            echo "STATE_ENV=FALSE" >> $GITHUB_ENV
+            echo "STATE_ENV=FALSE" >> $GITHUB_OUTPUT
           fi
   notification:
     needs: check-pods
     runs-on: ubuntu-latest
-    if: env.STATE_ENV = 'TRUE'
+    if: needs.check-pods.outputs.STATE_ENV = 'TRUE'
     steps:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
