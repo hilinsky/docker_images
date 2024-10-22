@@ -6,6 +6,6 @@ jobs:
     runs-on: my_runner
     steps:
       - run: |
-          ls -la /root/.kube
-          env
+          export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
+          kubectl get pods -A
 
