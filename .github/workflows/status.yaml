@@ -10,5 +10,5 @@ jobs:
           export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
           IFS=$'\n' STATUS_ARRAY=($(kubectl get pods -A | sed -n '2,$p '| awk '{print $4}'))
           #kubectl get pods -A | sed -n '2,$p '| awk '{print $2, $4}'
-          id: status
+        id: status
 
