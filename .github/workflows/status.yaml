@@ -7,4 +7,4 @@ jobs:
     steps:
       - name: Get env
         run: |
-          env | grep KUBECONFIG
+          env
