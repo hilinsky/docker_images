@@ -12,4 +12,4 @@ jobs:
           echo "STATUS_ARRAY_ENV=$STATUS_ARRAY" >> $GITHUB_ENV
       - name: Using environment variable
         run: |
-          echo ${{ env.STATUS_ARRAY }}
+          echo ${{ env.STATUS_ARRAY_ENV }}
