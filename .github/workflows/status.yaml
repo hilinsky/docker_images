@@ -10,6 +10,7 @@ jobs:
       - name: Export kubeconfig and get pods
         run: |
           export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
+          kubectl get pods -A
           STATUS_ARRAY=$(kubectl get pods -A | sed -n '2,$p '| awk '{print $2, $4}')
           echo "STATUS_ARRAY_ENV<<EOF" >> $GITHUB_ENV
           echo $STATUS_ARRAY >> $GITHUB_ENV
