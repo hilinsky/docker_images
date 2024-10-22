@@ -17,16 +17,14 @@ jobs:
           STATUS="Error"
           if [[ ${STATUS_ARRAY_ENV[@]} =~ $STATUS ]]
           then
-            STATE="TRUE"
-            echo "STATE_ENV=$STATE" >> $GITHUB_ENV
+            echo "STATE_ENV=TRUE" >> $GITHUB_ENV
           else
-            STATE="FALSE"
-            echo "STATE_ENV=$STATE" >> $GITHUB_ENV
+            echo "STATE_ENV=FALSE" >> $GITHUB_ENV
           fi
   notification:
     needs: check-pods
     runs-on: ubuntu-latest
-    if: ${{ check-pods.STATE_ENV }} = 'TRUE'
+    if: env.STATE = 'TRUE'
     steps:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
