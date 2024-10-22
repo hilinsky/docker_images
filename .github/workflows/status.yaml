@@ -11,4 +11,4 @@ jobs:
       - name: Get pods status
         run: |
           #kubectl get pods -A | sed -n '2,$p '| awk '{print $4}'
-          env
+          env | grep KUBECONFIG
