@@ -14,10 +14,13 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
       - name: Using environment variable
         run: |
-          STATUS="Eror"
-          if [[ ${STATUS_ARRAY_ENV[@]} =~ $STATUS ]]
-          then
-            echo "Array element '$STATUS' exists"
-          else
-            echo "Array element does not exist"
-          fi
+          STATUS="Error"
+          for elements in ${STATUS_ARRAY_ENV[@]}
+              do
+                  if [[ $elements =~ $STATUS ]]
+                  then
+                    echo "Array element '$STATUS' exists, $elements "
+                  else
+                    echo "Array element does not exist"
+                  fi
+          done 
