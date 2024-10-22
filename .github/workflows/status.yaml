@@ -8,7 +8,9 @@ jobs:
       - name: Export Kubeconfig
         run: |
           export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
-          echo "STATUS_ARRAY=$(kubectl get pods -A | sed -n '2,$p '| awk '{print $4}')"
+          echo "STATUS_ARRAY=$(kubectl get pods -A | sed -n '2,$p '| awk '{print $2, $4}')"
+          echo "STATUS_ARRAY_ENV<<EOF" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 #      - name: Display env
 #        run: |
 #          echo ${{ env.STATUS_ARRAY }}
