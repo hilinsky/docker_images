@@ -9,3 +9,6 @@ jobs:
         run: |
           export KUBECONFIG=/root/.kube/config-k3s:/root/.kube/config-k8s
           kubectl get pods -A | sed -n '2,$p '| awk '{print $4}'
+      - name: Get status of pods
+        run: |
+          kubectl get pods -A | sed -n '2,$p '| awk '{print $4}'
