@@ -5,7 +5,6 @@ jobs:
   test-on-cluster:
     runs-on: my_runner
     steps:
-      - name: Testing on a k8s Kind Cluster
       - run: |
           cat /etc/passwd
 
