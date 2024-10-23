@@ -1,1 +1,13 @@
-
+name: K8s pod
+on:
+  workflow_dispatch:
+jobs:
+  check-pods:
+    runs-on: k8s_runner
+    steps:
+      - name: Display CPU information
+        run: |
+          lscpu
+      - name: Gather disk information
+        run: |
+          lsblk
