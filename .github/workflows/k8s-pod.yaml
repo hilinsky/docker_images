@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   check-pods:
-    runs-on: k8s_runner
+    runs-on: self-hosted 
     steps:
       - name: Display CPU information
         run: |
