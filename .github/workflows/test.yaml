@@ -34,6 +34,9 @@ jobs:
         run: sudo apt install curl
       - name: Test request
         run: curl http://localhost -v
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ./${{ inputs.imageToBuild }}/Dockerfile
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
