@@ -37,7 +37,7 @@ jobs:
       - name: Non-root check for Docker image
         uses: wetransform/gha-docker-nonroot@v1.0.3
         with:
-          image_ref: hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}
+          image-ref: hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}
           fail-for-root: true
       - name: Build and push image
         uses: docker/build-push-action@v3
