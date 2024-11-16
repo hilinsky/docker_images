@@ -30,8 +30,8 @@ jobs:
         run: docker build --file ./${{ inputs.imageToBuild }}/Dockerfile --tag hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }} ./${{ inputs.imageToBuild }}
       - name: Run the NodeJS App
         run: docker run --name ${{ inputs.imageToBuild }}-app -p 80:8080 -d hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}
-      - name: Install curl
-        run: apt install curl
+      - name: Setup curl
+        uses: kordlib/setup-curl@v1.0.0
       - name: Test request
         run: curl http://localhost -v
       - name: Build and push image
