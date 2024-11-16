@@ -34,9 +34,8 @@ jobs:
         run: sudo apt install curl
       - name: Test request
         run: curl http://localhost -v
-      - uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: ./${{ inputs.imageToBuild }}/Dockerfile
+      - name: Non-root check for Docker image
+        uses: wetransform/gha-docker-nonroot@v1.0.3
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
@@ -52,7 +51,7 @@ jobs:
       env:
         SLACK_CHANNEL: all-slack
         SLACK_COLOR: ${{ job.status }}
-        SLACK_MESSAGE: "Docker image is ready ghcr.io/hilinsky/${{ inputs.imageToBuild }}:latest"
+        SLACK_MESSAGE: "Docker image is ready ghcr.io/hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}"
         SLACK_TITLE: Docker image build status
         SLACK_USERNAME: GitHub
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
