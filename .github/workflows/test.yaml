@@ -1,4 +1,4 @@
-name: Manual test and publish Docker image
+name: Manual publish Docker image
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ on:
         required: true
         default: 'latest'
 jobs:
-  test_push_image:
+  push_image:
     name: Push Docker image
     runs-on: ubuntu-latest
     permissions:
@@ -27,7 +27,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: Build the Docker image
-        run: docker build . --file ./${{ inputs.imageToBuild }}/Dockerfile --tag hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}
+        run: docker build --file ./${{ inputs.imageToBuild }}/Dockerfile --tag hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }} ./${{ inputs.imageToBuild }}
       - name: Run the NodeJS App
         run: docker run --name ${{ inputs.imageToBuild }}-app -p 80:8080 -d hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}
       - name: Install curl
@@ -41,7 +41,7 @@ jobs:
           push: true
           tags: ghcr.io/hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}
   notification:
-    needs: test_push_image
+    needs: push_image
     runs-on: ubuntu-latest
     steps:
     - name: Slack Notification
