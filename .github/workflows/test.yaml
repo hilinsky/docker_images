@@ -36,6 +36,8 @@ jobs:
         run: curl http://localhost -v
       - name: Non-root check for Docker image
         uses: wetransform/gha-docker-nonroot@v1.0.3
+        with:
+          image: hilinsky/${{ inputs.imageToBuild }}:${{ inputs.tagImage }}
       - name: Build and push image
         uses: docker/build-push-action@v3
         with:
