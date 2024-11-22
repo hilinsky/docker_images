@@ -27,5 +27,10 @@ jobs:
           proxy_port: ${{ secrets.JUMP_PORT }} 
           proxy_username: ${{ secrets.JUMP_USER }} 
           proxy_password: ${{ secrets.JUMP_PASSWORD }} 
-          script: bash ./bash/check_passwd.sh "${{ inputs.userToCheck }}"
+          script: |
+            if getent passwd "${{ inputs.userToCheck }}" > /dev/null; then
+                echo "User '${{ inputs.userToCheck }}' exists."
+            else
+                echo "User '${{ inputs.userToCheck }}' does not exist."
+            fi
 
