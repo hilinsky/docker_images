@@ -28,9 +28,6 @@ jobs:
           proxy_username: ${{ secrets.JUMP_USER }} 
           proxy_password: ${{ secrets.JUMP_PASSWORD }} 
           script: |
-            if getent passwd "${{ inputs.userToCheck }}" > /dev/null; then
-                echo "User '${{ inputs.userToCheck }}' exists."
-            else
-                echo "User '${{ inputs.userToCheck }}' does not exist."
-            fi
+            export API_TOKEN="${{ secrets.JENKINS_USERNAME }}:${{ secrets.JENKINS_TOKEN }}"
+            
 
