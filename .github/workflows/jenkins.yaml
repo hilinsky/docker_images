@@ -9,7 +9,7 @@ on:
         default: 'root'
 
 jobs:
-  deploy:
+  check:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,5 +29,6 @@ jobs:
           proxy_password: ${{ secrets.JUMP_PASSWORD }} 
           script: |
             export API_TOKEN="${{ secrets.JENKINS_USERNAME }}:${{ secrets.JENKINS_TOKEN }}"
+            env | grep API_TOKEN
             
 
