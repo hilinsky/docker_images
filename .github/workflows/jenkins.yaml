@@ -28,6 +28,9 @@ jobs:
           proxy_username: ${{ secrets.JUMP_USER }} 
           proxy_password: ${{ secrets.JUMP_PASSWORD }} 
 
+      - name: Check
+        run: ip addr
+
       - name: Check if user exist
         run: bash ./bash/check_passwd.sh "${{ inputs.userToCheck }}"
 
