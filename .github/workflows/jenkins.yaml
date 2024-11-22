@@ -1,4 +1,4 @@
-oname: Check if user exist
+name: Check if user exist
 
 on:
   workflow_dispatch:
