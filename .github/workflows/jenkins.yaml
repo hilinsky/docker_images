@@ -1,1 +1,33 @@
+name: Check if user exist
+
+on:
+  workflow_dispatch:
+    inputs:
+      userToCheck:
+        description: 'Username'
+        required: true
+        default: 'root'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Connect to remote server via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }} 
+          proxy_host: ${{ secrets.JUMP_HOST }} 
+          proxy_port: ${{ secrets.JUMP_PORT }} 
+          proxy_username: ${{ secrets.JUMP_USER }} 
+          proxy_password: ${{ secrets.JUMP_PASSWORD }} 
+
+      - name: Check if user exist
+        run: bash ./bash/check_passwd.sh "${{ inputs.userToCheck }}"
 
