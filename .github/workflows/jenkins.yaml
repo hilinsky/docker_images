@@ -29,6 +29,5 @@ jobs:
           proxy_password: ${{ secrets.JUMP_PASSWORD }} 
           script: |
             export API_TOKEN="${{ secrets.JENKINS_USERNAME }}:${{ secrets.JENKINS_TOKEN }}"
-            env | grep API_TOKEN
-            echo "${{ secrets.JUMP_PASSWORD }}"
+            curl -X POST --user ${API_TOKEN} "http://jenkins.sa/job/Check%20If%20User%20Exist/buildWithParameters?USERNAME=${{ inputs.userToCheck }}"
 
